@@ -13,6 +13,8 @@ class Server {
   private ServerSideConnection playerOne;
   private ServerSideConnection playerTwo;
 
+  private enum SERVER_STATE {WAITING_ON_PLAYERS, START, PLAYER_1_TURN, PLAYER_2_TURN, DETERMINING, END};
+  private SERVER_STATE MY_STATE;
 
   /**
     * Sets up the socket for the server.
@@ -20,10 +22,34 @@ class Server {
   public Server() {
     playerCount = 0;
     System.out.println("------------ Server --------------");
+    MY_STATE = SERVER_STATE.WAITING_ON_PLAYERS;
     try {
       socket = new server_socket(25565);
     }catch(IOException ex) {System.out.println("IO Exception from default constructor.");}
   }
+
+
+  private void stateHandler(String message, String option, ServerSideConnection ssc) {
+    System.out.print("State before stateHandler: "+ this.MY_STATE + "| Input: " message + " " + option);
+    switch(MY_STATE) {
+      case SERVER_STATE.WAITING_ON_PLAYERS:
+        break;
+      case SERVER_STATE.START:
+        break;
+      case SERVER_STATE.PLAYER_1_TURN:
+        break;
+      case SERVER_STATE.PLAYER_2_TURN:
+        break;
+      case SERVER_STATE.DETERMINING:
+        break;
+      case SERVER_STATE.END:
+        break;
+    }
+    System.out.print("State after stateHandler: " + this.MY_STATE + "| Input: " message + " " + option);
+  }
+
+
+
 
 
   public void acceptConnections() throws InterruptedException {
@@ -39,15 +65,21 @@ class Server {
           playerOne = ssc;
         else
           playerTwo = ssc;
+        Thread thread = new Thread(ssc);
+        thread.start();
       }
+      System.out.println(playerCount + " players have connected.");
+      Thread.sleep(1000);
+
 
     } catch(IOException e) { System.out.println("IOException within acceptConnections() method.");}
   }
 
   /* Make new server; else, send stack trace.*/
   public static void main(String args[]) {
+    Server serv = new Server();
     try {
-      Server serv = new Server();
+      serv.acceptConnections();
     } catch (Exception e) {e.printStackTrace(); }
   }
 }
