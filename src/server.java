@@ -3,7 +3,8 @@ import java.net.*;
 import java.util.ArrayList;
 import java.util.Random;
 
-class Server {
+
+public class Server {
 
   //socket maintainence attributes
   private ServerSocket socket;
@@ -13,7 +14,7 @@ class Server {
   private ServerSideConnection playerOne;
   private ServerSideConnection playerTwo;
 
-  private enum SERVER_STATE {WAITING_ON_PLAYERS, START, PLAYER_1_TURN, PLAYER_2_TURN, DETERMINING, END};
+  private enum SERVER_STATE {WAITING_ON_PLAYERS, START, PLAYER_1_TURN, PLAYER_2_TURN, DETERMINING, END}; //TURN_ENDED
   private SERVER_STATE MY_STATE;
 
   /**
@@ -33,6 +34,8 @@ class Server {
     System.out.print("State before stateHandler: "+ this.MY_STATE + "| Input: " message + " " + option);
     switch(MY_STATE) {
       case SERVER_STATE.WAITING_ON_PLAYERS:
+        //if we're waiting on these players...
+
         break;
       case SERVER_STATE.START:
         break;
