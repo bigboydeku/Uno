@@ -53,6 +53,14 @@ public class Client {
     System.out.print("State before stateHandler: "+ this.MY_STATE + "| Input: " message + " " + option);
     switch(MY_STATE) {
       case MY_STATE.NOT_CONNECTED:
+        if (message.equals("ALL_READY")) {
+          this.MY_STATE = PLAYER_STATE.WAITING;
+          return;
+        }
+        else if(message.equals("YOUR_TURN")) {
+          this.MY_STATE = PLAYER_STATE.PLAYER_TURN;
+          System.out.println(" ~~ Your turn ~~");
+        }
         break;
       case MY_STATE.NAME_SUBMITTED:
         break;

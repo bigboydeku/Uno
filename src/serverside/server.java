@@ -35,9 +35,20 @@ public class Server {
     switch(MY_STATE) {
       case SERVER_STATE.WAITING_ON_PLAYERS:
         //if we're waiting on these players...
-
+        if(message.equals("ALL_READY")) {
+          MY_STATE = SERVER_STATE.START;
+          broadcastMessageToAllPlayers("ALL_READY -1");
+        }
         break;
       case SERVER_STATE.START:
+        if (message.equals("PLAYER_1_TURN") && this.playerOne == ssc) {
+          this.MY_STATE = SERVER_STATE.PLAYER_1_TURN;
+          return;
+        }
+        else {
+          this.MY_STATE = SERVER_STATE.PLAYER_2_TURN;
+          return;
+        }
         break;
       case SERVER_STATE.PLAYER_1_TURN:
         break;
@@ -51,9 +62,17 @@ public class Server {
     System.out.print("State after stateHandler: " + this.MY_STATE + "| Input: " message + " " + option);
   }
 
-
-
-
+  public void onMessageFromPlayer(String msg, ServerSideConnection ssc) {
+    String message = msg.split(" ")[0];
+    String option = msg.split(" ")[1];
+    if(message.equals("NAME_REG")) {
+      ssc.setPlayerName(option);
+      ssc.sendMessageToPlayer("NAME_ACCEPT" + option);
+    }
+    else {
+      stateHandler(message, option, ssc);
+    }
+  }
 
   public void acceptConnections() throws InterruptedException {
     try {
