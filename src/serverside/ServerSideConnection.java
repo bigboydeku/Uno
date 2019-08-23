@@ -46,7 +46,7 @@ class ServerSideConnection implements Runnable {
   }
 
   public void setPlayerName(String playerName) {
-    this.playerName = playerName;
+    this.playerName = playerName; 
   }
 
   public String getPlayerName() {
