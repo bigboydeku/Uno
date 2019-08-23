@@ -17,7 +17,7 @@ class ServerConnection {
     System.out.println("Attempting to connect to server port:" + port);
     while(!attemptConnection(port)) {
       Thread.sleep(1000);
-      this.attempt = 0;
+      this.attempts++;
       if (attempts >= MAX_ATTEMPTS) {
         System.out.println("Failure to connect to server... Exiting program.");
         System.exit(2);
