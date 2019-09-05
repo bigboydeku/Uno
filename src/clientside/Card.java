@@ -1,14 +1,8 @@
 import java.util.*;
-import java.io.*;
-import java.net.*;
 
-public PlayerDeck implements Serializable {
-  private ServerSideConnection ssc;
+public class Card {
 
-  public PlayerDeck() {
-    ArrayList<> cards = new ArrayList<>();
 
-  }
 
   private enum CARD_NUMBER_STATE { 0,1,2,3,4,5,6,7,8,9;
     public static CARD_NUMBER_STATE getRandom() {
@@ -16,8 +10,11 @@ public PlayerDeck implements Serializable {
       int i = random.nextInt(values().length);
       return values()[i];
     }
+
   }
 
-  public static ArrayList<>
 
+  public static void main(String [] args ) {
+
+  }
 }
